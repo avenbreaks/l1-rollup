@@ -1,0 +1,70 @@
+nohup geth \
+	--datadir ./datadir \
+	--http \
+	--http.corsdomain="*" \
+	--http.vhosts="*" \
+	--http.addr=0.0.0.0 \
+	--http.port=8545 \
+	--http.api=web3,debug,eth,txpool,net,engine \
+	--ws \
+	--ws.addr=0.0.0.0 \
+	--ws.port=8546 \
+	--ws.origins="*" \
+	--ws.api=debug,eth,txpool,net,engine \
+	--syncmode=full \
+	--gcmode=archive \
+	--nodiscover \
+	--maxpeers=0 \
+	--networkid=42069 \
+	--authrpc.vhosts="*" \
+	--authrpc.addr=0.0.0.0 \
+	--authrpc.port=8551 \
+	--authrpc.jwtsecret=./jwt.txt \
+	--rollup.disabletxpoolgossip=true \
+	--password=./datadir/password \
+	--allow-insecure-unlock \
+	--mine \
+	--miner.etherbase=0x68c87dbcfde54c4d9c1361921e754099c4b674ad \
+	--unlock=0x68c87dbcfde54c4d9c1361921e754099c4b674ad \
+	> /home/ubuntu/op-geth/log/geth.log &
+	
+nohup op-node \
+	--l2=http://localhost:8551 \
+	--l2.jwt-secret=./jwt.txt \
+	--sequencer.enabled \
+	--sequencer.l1-confs=3 \
+	--verifier.l1-confs=3 \
+	--rollup.config=./rollup.json \
+	--rpc.addr=0.0.0.0 \
+	--rpc.port=8547 \
+	--p2p.disable \
+	--rpc.enable-admin \
+	--p2p.sequencer.key=7fcae03cc979a75b8181b04295448fff292c5d06abebfaeeea5d500cb37a7875 \
+	--l1=https://rpc-shadownet.cartenz.works \
+	--l1.rpckind=any \
+	> /home/ubuntu/op-geth/log/op-node.log &
+
+nohup op-batcher \
+    --l2-eth-rpc=http://localhost:8545 \
+    --rollup-rpc=http://localhost:8547 \
+    --poll-interval=1s \
+    --sub-safety-margin=6 \
+    --num-confirmations=1 \
+    --safe-abort-nonce-too-low-count=3 \
+    --resubmission-timeout=30s \
+    --rpc.addr=0.0.0.0 \
+    --rpc.port=8548 \
+    --rpc.enable-admin \
+    --max-channel-duration=1 \
+    --l1-eth-rpc=https://rpc-shadownet.cartenz.works \
+    --private-key=4a77b1b2202e910170b1d0582c4c54d79631380b41336c5a16acde0f8d05bffb \
+    > /home/ubuntu/op-geth/log/op-batcher.log &
+    
+nohup op-proposer \
+    --poll-interval 12s \
+    --rpc.port 8560 \
+    --rollup-rpc http://localhost:8547 \
+    --l2oo-address 0x14a73bD6A0864AB5e00Ab02948C6e4196C953F89 \
+    --private-key 5f2d6ebf1a66bcb97c5169579e7d12809479b7dd6826fdb41606ca7a09f0a33e \
+    --l1-eth-rpc https://rpc-shadownet.cartenz.works \
+    > /home/ubuntu/op-geth/log/op-proposer.log &

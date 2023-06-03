@@ -1,0 +1,13 @@
+Mnemonic: spoon parrot outside soda seven more input pencil shrimp fire slogan glare
+
+Admin: 0x5b505be42c7ef016a17d0d8026109dcf35e25320
+Private Key: 4a8ace77dd30d922493fd34a6b24c655d9f0ec1f4ad1d1149fd09e2f77af16f9
+
+Proposer: 0xce79bedfdf4d85997f628647477d229c718f5822
+Private Key: 5f2d6ebf1a66bcb97c5169579e7d12809479b7dd6826fdb41606ca7a09f0a33e
+
+Batcher: 0x212ab787ce8606caa85a450af8fe0112f7cacccb
+Private Key: 4a77b1b2202e910170b1d0582c4c54d79631380b41336c5a16acde0f8d05bffb
+
+Sequencer: 0x68c87dbcfde54c4d9c1361921e754099c4b674ad
+Private Key: 7fcae03cc979a75b8181b04295448fff292c5d06abebfaeeea5d500cb37a7875
